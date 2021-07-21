@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.9-alpine3.13
 
 ENV REDIS_SENTINEL=redis-sentinel
 ENV REDIS_MASTER=mymaster
