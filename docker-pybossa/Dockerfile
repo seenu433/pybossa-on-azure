@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.2
 FROM python:3.9-alpine3.13
 
 ENV REDIS_SENTINEL=redis-sentinel
@@ -16,10 +17,12 @@ RUN set -x && \
     cd /opt/pybossa && \
     sed -i 's/pyparsing==2.3.0/pyparsing>=2.3.0/g' setup.py
 
-RUN cd /opt/pybossa && \ 
+RUN --mount=type=cache,target=/root/.cache \
+    cd /opt/pybossa && \ 
     pip install -U pip setuptools
     
-RUN cd /opt/pybossa && \ 
+RUN --mount=type=cache,target=/root/.cache \
+    cd /opt/pybossa && \ 
     pip install -r /opt/pybossa/requirements.txt && \
     rm -rf /opt/pybossa/.git/ && \
     addgroup pybossa  && \
